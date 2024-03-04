@@ -1,4 +1,3 @@
-
 ## Task 2: Frontend
 
 Extend the Angular project provided to you with the following functionality:
@@ -11,33 +10,32 @@ Extend the Angular project provided to you with the following functionality:
      - Update a task
      - [OPTIONAL] Add a new task.
      - [OPTIONAL] Delete a task.
-     - Add a comment to a task.
-     - Get all comments of a task.
+     - [OPTIONAL] Add a comment to a task.
+     - [OPTIONAL] Get all comments of a task.
 
 2. **Task List Component (`TaskListComponent`):**
    - Display the list of tasks retrieved from the `TaskService`.
-   - Display all fields of each task.
+   - Display all fields for each task.
    - Clicking on an entry in the list should navigate to the detail view of a specific task.
    - [OPTIONAL] Allow the user to create a new task
 
 3. **Task Detail Component (`TaskDetailComponent`):**
    - Display the details of a specific task retrieved from the `TaskService`.
-   - Use the id in the path to load the details and comments of the task.
    - Display the task details.
    - Allow editing of the follwing fields: title, text and status.
-   - Allow adding comments to the task.
    - Include a save button to save the task.
+   - [OPTIONAL] Use the id in the path to load the details
    - [OPTIONAL] Include a Delete button to delete the task.
+   - [OPTIONAL] Show the comments of the task.
+   - [OPTIONAL] Allow adding a comment to the task.
 
 4. **Routing:**
    - Implement routing as follows:
      - `/tasks` => `TaskListComponent`
      - `/tasks/<taskId>` => `TaskDetailComponent` that loads the task given the id in the path.
 
-5. **State Management:**
-   - Use state management to store the loaded tasks & comments.
-
-6. **Bonus Tasks (Optional):**
+5. **Bonus Tasks (Optional):**
+   - [OPTIONAL] Use state management to store the loaded tasks & comments.
    - [OPTIONAL] Implement a robust authentication system with a LoginComponent that simulates user authentication.
    - [OPTIONAL] Use guards to protect routes, ensuring that only authenticated users can access the /tasks and /tasks/<taskId> routes.
    - [OPTIONAL] Add loading spinners while the http operations are in progress.
