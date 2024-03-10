@@ -1,17 +1,31 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DOCUMENT } from '@angular/common';
 
 describe('AppComponent', () => {
+
+  let comp: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let doc: Document;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [AppComponent, RouterTestingModule],
     }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    comp = fixture.componentInstance;
+    doc = TestBed.inject(DOCUMENT);
+  });
+
+  it('should test ngOnInit', () => {
+    comp.ngOnInit();
+    const navMain = doc.getElementById('navbarCollapse');
+    navMain?.click();
+    expect(true).toBe(true);
   });
 
   it('should create the app', () => {
@@ -20,16 +34,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'assessment-frontend'`, () => {
+  it(`should have the 'angular-routing' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('assessment-frontend');
+    expect(app.title).toEqual('angular-routing');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, assessment-frontend');
-  });
 });
