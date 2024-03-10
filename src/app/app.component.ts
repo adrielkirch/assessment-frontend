@@ -17,7 +17,7 @@ import { FooterModule } from './components/footer/footer.module';
     FooterModule,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'angular-routing';
