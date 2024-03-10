@@ -14,9 +14,7 @@ export class TaskListComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.isLoggedIn().subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn;
-    });
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
  
   tasks: Task[] = [

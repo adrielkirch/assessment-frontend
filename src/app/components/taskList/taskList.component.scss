@@ -3,6 +3,8 @@
 $yellow:#EDFE33;
 $black: #000;
 $green: green;
+$red: #F32013;
+$grey:#ccc;
 $color-body: $yellow;
 $color-border: $black;
 $color-button: $yellow;
@@ -105,7 +107,7 @@ button {
  
 }
 button:disabled {
-  background-color: #ccc; 
+  background-color: $grey; 
 }
 
 input {
@@ -219,10 +221,22 @@ ul {
   }
 }
 
-i {
+.div-icons {
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
   margin-left: 16px;
+ 
+}
+
+.icon-details {
   text-decoration: none !important;
   color: $black;
+}
+
+.icon-trash {
+  text-decoration: none !important;
+  color: $red;
 }
 
 .completed {

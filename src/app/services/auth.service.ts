@@ -7,11 +7,9 @@ import { API_URL } from "../constants/backend.constants";
   providedIn: "root",
 })
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  private loggedIn = false
 
-  constructor(private http: HttpClient) {
-    this.loggedIn.next(true);
-  }
+  constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http
@@ -20,23 +18,37 @@ export class AuthService {
         tap((response) => {
           const session = response;
           localStorage.setItem("token", session.token);
-
+          
           delete session["token"];
 
           localStorage.setItem("session", JSON.stringify(session));
-          this.loggedIn.next(true);
+          this.loggedIn = true;
         })
       );
   }
 
+  signup(email: string, password: string): Observable<any> {
+    return this.http
+      .post<any>(`${API_URL}/users/signup`, { email, password })
+      .pipe(
+        tap(() => {
+       
+        })
+      );
+  }
+
+
   logout(): void {
     localStorage.removeItem("token");
     localStorage.removeItem("session");
-    this.loggedIn.next(false);
+    this.loggedIn = false;
   }
 
-  isLoggedIn(): Observable<boolean> {
-    console.log(this.loggedIn.asObservable());
-    return this.loggedIn.asObservable();
+  isLoggedIn(): boolean {
+    if (typeof localStorage !== 'undefined') {
+      return !!localStorage.getItem("token");
+    } else {
+      return false;
+    }
   }
 }

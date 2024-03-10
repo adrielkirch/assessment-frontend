@@ -25,6 +25,13 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(): void {
+    const isLoggedIn =  this.authService.isLoggedIn();
+    if(isLoggedIn) {
+      this.router.navigate(['/']);
+    }
+  }
+
   onSubmit() {
     if (this.loginForm.invalid) {
       alert("Check your e-mail and password, and try again");
@@ -39,7 +46,8 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           alert("Login successful");
-          this.router.navigate(['/']);
+          window.location.reload();
+        
         },
         error: (error) => {
           console.error("Login failed:", error);
