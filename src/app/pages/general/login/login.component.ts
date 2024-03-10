@@ -1,10 +1,46 @@
-import { Component } from '@angular/core';
-
+import { Component } from "@angular/core";
+import { AuthService } from "../../../services/auth.service";
+import { AuthRequestDTO } from "../../../models/requestDTO/auth.models.requestDTO";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.scss",
 })
 export class LoginComponent {
+  loginForm: FormGroup; 
+  private unsubscribe$ = new Subject<void>();
+  constructor(
+    private formBuilder: FormBuilder, 
+    private authService: AuthService
+  ) {
+ 
+    this.loginForm = this.formBuilder.group({
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required]],
+    });
+  }
 
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService
+      .login(email, password)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response) => {
+          console.log("Login successful");
+        },
+        error: (error) => {
+          console.error("Login failed:", error);
+          alert("Login failed")
+        },
+      });
+  }
 }
