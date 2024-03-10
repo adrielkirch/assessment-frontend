@@ -6,11 +6,7 @@ import { NotFoundComponent } from './pages/general/not-found/not-found.component
 export const routes: Routes = [
   { path: '', component: HomeComponent, },
 
-  {
-    path: 'landing-page',
-    loadChildren: () => import('./pages/general/example-landing-page/tutorial.module')
-      .then(mod => mod.TutorialModule)
-  },
+ 
 
   {
     path: 'login',

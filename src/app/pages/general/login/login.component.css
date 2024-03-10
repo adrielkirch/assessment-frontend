@@ -11,13 +11,13 @@
   .btn-nga:focus {
     -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    color: #4285f4;
+    color: #000;
     font-weight: bold;
   }
   
   .btn-nga-primary {
-    border: 2px solid #4285f4;
-    color: #4285f4;
+    border: 2px solid #000;
+    color: #000;
     background-color: transparent;
   }
   
@@ -41,8 +41,8 @@
   }
   
   .card-header {
-    background-color: #4285f4;
-    color: white;
+    background-color: #EDFE33;
+    color: black;
   }
   
   a {

@@ -1,6 +1,11 @@
 .nga-container {
   font-size: 1.2em;
 }
+.scrollable-container {
+
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px; /* Optional: Add padding for spacing */
+}
 
 @media (max-width: 992px) {
   .nga-container {
