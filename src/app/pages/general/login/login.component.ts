@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../../../services/auth.service";
-import { AuthRequestDTO } from "../../../models/requestDTO/auth.models.requestDTO";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";

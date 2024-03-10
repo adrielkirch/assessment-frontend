@@ -9,7 +9,9 @@ import { API_URL } from "../constants/backend.constants";
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loggedIn.next(true);
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http
@@ -18,7 +20,7 @@ export class AuthService {
         tap((response) => {
           const session = response;
           localStorage.setItem("token", session.token);
-          
+
           delete session["token"];
 
           localStorage.setItem("session", JSON.stringify(session));
@@ -29,10 +31,12 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem("token");
+    localStorage.removeItem("session");
     this.loggedIn.next(false);
   }
 
   isLoggedIn(): Observable<boolean> {
+    console.log(this.loggedIn.asObservable());
     return this.loggedIn.asObservable();
   }
 }
