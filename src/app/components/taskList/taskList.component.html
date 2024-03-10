@@ -1,0 +1,36 @@
+<div class="main-div">
+  <h1>Task list</h1>
+  <form #form="ngForm" (ngSubmit)="addTask()">
+    <div>
+      <input
+        type="text"
+        name="task"
+        placeholder="Add a new task"
+        [(ngModel)]="newTask"
+        required
+        [disabled]="!isLoggedIn"
+      />
+      <button [disabled]="!isLoggedIn">Add task</button>
+    </div>
+  </form>
+  <ul>
+    <li *ngFor="let task of tasks; let i = index" [class.completed]="task.done">
+      <div class="d-flex align-items-center">
+        <span class="text-task">{{ task.title }}</span>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+      <input
+        type="checkbox"
+        [id]="'task-' + i"
+        [(ngModel)]="task.done"
+        [disabled]="!isLoggedIn"
+      />
+      <label [for]="'task-' + i"></label>
+    </li>
+  </ul>
+
+  <p *ngIf="tasks.length === 0" class="fade all-complete">
+    All tasks have been completed.
+  </p>
+
+</div>

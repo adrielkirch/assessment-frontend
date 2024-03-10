@@ -7,13 +7,12 @@ import { AuthService } from "../../services/auth.service";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent {
-  isLoggedIn = false; 
+  isLoggedIn = false;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe((loggedIn) => {
-     
-      this.isLoggedIn = loggedIn; 
+      this.isLoggedIn = loggedIn;
     });
   }
 
