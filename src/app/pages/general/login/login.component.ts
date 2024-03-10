@@ -24,7 +24,9 @@ export class LoginComponent {
   }
 
   onSubmit() {
+
     if (this.loginForm.invalid) {
+      alert("Check your e-mail and password, and try again")
       return;
     }
 
@@ -35,11 +37,11 @@ export class LoginComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
-          console.log("Login successful");
+          alert("Login successful");
         },
         error: (error) => {
           console.error("Login failed:", error);
-          alert("Login failed")
+          alert("E-mail or password incorret(s)")
         },
       });
   }
