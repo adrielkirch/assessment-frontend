@@ -1,5 +1,5 @@
 {
-  "name": "angular-starter",
+  "name": "assessment-frontend",
   "version": "17.2.4",
   "scripts": {
     "ng": "ng",
