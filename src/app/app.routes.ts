@@ -1,11 +1,14 @@
 import { Routes } from "@angular/router";
 
 import { HomeComponent } from "./pages/general/home/home.component";
+import { TaskComponent } from "./pages/general/task/task.view.component";
 import { NotFoundComponent } from "./pages/general/not-found/not-found.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
+
   { path: "tasks", component: HomeComponent },
+  { path: "task", component: TaskComponent },
   {
     path: "login",
     loadChildren: () =>

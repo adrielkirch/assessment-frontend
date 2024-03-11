@@ -1,0 +1,57 @@
+<div class="main-div">
+  <h1>Task</h1>
+  <h4>#601f8be6eaaee809f30b8f13</h4>
+  <div *ngIf="!isLoggedIn" class="alert alert-danger mb-4" role="alert">
+    You must be logged, in order to interact with tasks.
+  </div>
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let key of taskKeys()">
+        <td>{{ key }}</td>
+        <td>{{ getTaskValue(key) }}</td>
+      </tr>
+    </tbody>
+    
+  </table>
+  
+  
+  <br />
+  <form class="mt-6" #form="ngForm" (ngSubmit)="addComment()">
+    <div>
+      <input
+        type="text"
+        name="comment"
+        placeholder="Add a new comment"
+        [(ngModel)]="newComment"
+        required
+        [disabled]="!isLoggedIn"
+      />
+      <button [disabled]="!isLoggedIn">Add</button>
+    </div>
+    <br />
+  </form>
+  <ul>
+    <li *ngFor="let comment of comments; let i = index">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex flex-column">
+          <span class="text-comment">{{ comment.title }}</span>
+          <small>{{ formatCreatedAt(comment.createdAt) }}</small>
+        </div>
+        <i class="fas fa-trash icon-trash ml-2"></i>
+      </div>
+
+      <label [for]="'comment-' + i"></label>
+    </li>
+  </ul>
+
+  <p *ngIf="comments.length === 0" class="fade all-complete">
+    All tasks have been completed.
+  </p>
+</div>

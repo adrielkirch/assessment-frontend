@@ -19,7 +19,7 @@ export class TaskListComponent {
  
   tasks: Task[] = [
     { title: "A default item", done: false },
-    { title: "A completed default item", done: true },
+   
   ];
 
   addTask(): void {
