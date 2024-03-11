@@ -1,0 +1,221 @@
+
+
+$yellow:#EDFE33;
+$black: #000;
+$green: green;
+$red: #F32013;
+$grey:#ccc;
+$color-body: $yellow;
+$color-border: $black;
+$color-button: $yellow;
+$color-button-text: $black;
+
+$color-complete: $black;
+$color-checkbox: rgba(0, 0, 0, 0.33);
+$color-checkbox-checked: $green;
+$color-item: darken($yellow, 30%);
+
+$margin-element: 24px;
+
+$font: 'Montserrat', sans-serif;
+
+@mixin placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+h1 {
+  font-size: 36px; 
+  font-weight: 700; 
+  letter-spacing: 1px; 
+  line-height: 1.2; 
+  color: $black; 
+  margin-bottom: 8px;
+}
+h5 {
+  margin-bottom: 32px;
+}
+
+body {
+  position: relative;
+  height: 100%;
+  padding: 8%;
+  margin: 0;
+  background: lighten($color-body, 10%);
+  box-shadow: inset rgba(black, 0.2) 0 0 100px;
+}
+
+.main-div {
+  padding: 24px;
+  margin: auto;
+  padding: $margin-element;
+  font-family: $font;
+  font-size: 18px;
+  line-height: 22px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 1366px;
+  
+}
+p {
+  font-size: 14px;
+  margin-bottom: $margin-element;
+}
+
+form > div {
+  display: block;
+  margin-bottom: $margin-element;
+  input {
+    width: 80%;
+    margin-bottom: 6px;
+  }
+  @media (min-width: 440px) {
+    display: flex;
+    input {
+      width: auto;
+      flex-grow: 2;
+      margin-right: 6px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+button {
+  padding: 12px 20px;
+  font-family: $font;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  background: $color-button;
+  color: $color-button-text;
+  box-shadow: inset darken($color-button, 20%) 0 -2px 0;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease-out;
+  border-radius: 0;
+  border-radius: 15px;
+}
+button:disabled {
+  background-color: $grey; 
+}
+
+.button-save {
+  padding: 12px 20px;
+  font-family: $font;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  background: $black;
+  color: #fff;
+  box-shadow: inset darken($color-button, 20%) 0 -2px 0;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease-out;
+  border-radius: 0;
+  border-radius: 8px;
+  position: absolute;
+  right: 0;
+}
+.input-btn-container {
+  position:relative !important;
+  width: 300px;
+}
+
+input {
+  padding: 10px;
+  font-family: $font;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid $color-border;
+  transition: border 0.2s ease-out;
+  border-radius: 8px;
+  box-shadow: none;
+  @include placeholder {
+    color: lighten($black, 5%);
+    transition: opacity 0.2s ease-out,
+      transform 0.2s ease-out;
+  }
+  &:focus {
+    border: 1px solid $black;
+    @include placeholder {
+      opacity: 0;
+      transform: translateX(12px);
+    }
+  }
+}
+
+input[type="checkbox"] {
+  margin-right: 4px;
+  border: 1px solid $grey;
+  background-color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .8); 
+}
+
+/* Style for checked checkbox */
+input[type="checkbox"]:checked {
+  background-color: #8B8000;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .8); 
+}
+
+ul {
+  margin: 0 0 $margin-element;
+
+  li {
+    color: $black;
+    position: relative;
+   
+    .text-comment {
+      display: block; 
+      font-family: 'Roboto', sans-serif; 
+      font-weight: 400; 
+      letter-spacing: 0.5px; 
+      font-size: 16px;
+    }
+    margin-bottom: 8px;
+  }
+}
+
+.div-icons {
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
+  margin-left: 16px;
+ 
+}
+
+.icon-cancel {
+  text-decoration: none !important;
+  color: $red;
+  margin-left: 32px;
+}
+
+.icon-trash {
+  text-decoration: none !important;
+  color: $red;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+small {
+  margin-top: 4px;
+  font-size: 10px;
+  opacity: .8;
+}
+.divider {
+  width: 100%;
+  opacity: 0.22;
+  border-bottom: 1px solid black;
+}

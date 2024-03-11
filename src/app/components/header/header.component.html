@@ -1,0 +1,31 @@
+<header class="navbar navbar-expand-md navbar-dark fixed-top nga-navbar">
+  <nav class="container" aria-label="Main navigation">
+    
+    <div class="navbar-collapse" id="navbarCollapse">
+
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link nga-nav-link" aria-current="page" routerLink="/">
+          Home</a>
+        </li>
+
+      </ul>
+      <form class="d-flex" *ngIf="isLoggedIn">
+        <!-- If logged in, show logout button -->
+        <button type="button" class="btn btn-sm me-2" (click)="logout()">
+          <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </button>
+      </form>
+
+      <form class="d-flex" *ngIf="!isLoggedIn">
+        <!-- If not logged in, show signup and login buttons -->
+        <button type="button" class="btn btn-sm nga-btn-navbar me-2" routerLink="/signup">
+          <i class="fas fa-user-plus me-2"></i>Sign up
+        </button>
+        <button type="button" class="btn btn-sm me-2" routerLink="/login">
+          <i class="fas fa-sign-in-alt me-2"></i>Login
+        </button>
+      </form>
+    </div>
+  </nav>
+</header>
