@@ -1,10 +1,8 @@
-
-
-$yellow:#EDFE33;
+$yellow: #edfe33;
 $black: #000;
 $green: green;
-$red: #F32013;
-$grey:#ccc;
+$red: #f32013;
+$grey: #ccc;
 $color-body: $yellow;
 $color-border: $black;
 $color-button: $yellow;
@@ -17,13 +15,21 @@ $color-item: darken($yellow, 30%);
 
 $margin-element: 24px;
 
-$font: 'Montserrat', sans-serif;
+$font: "Montserrat", sans-serif;
 
 @mixin placeholder {
-  &.placeholder { @content; }
-  &:-moz-placeholder { @content; }
-  &::-moz-placeholder { @content; }
-  &::-webkit-input-placeholder { @content; }
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
 }
 
 * {
@@ -36,14 +42,13 @@ html {
 
 h1 {
   margin-bottom: 16px;
-  font-size: 36px; 
-  font-weight: 700; 
-  letter-spacing: 1px; 
-  line-height: 1.2; 
-  color: $black; 
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  color: $black;
   margin-bottom: 16px;
 }
-
 
 body {
   position: relative;
@@ -55,7 +60,7 @@ body {
 }
 
 .main-div {
-  padding:16px;
+  padding: 16px;
   margin: auto;
   padding: $margin-element;
   font-family: $font;
@@ -65,8 +70,14 @@ body {
   border-radius: 8px;
   box-shadow: rgba(black, 0.2) 0 20px 20px -12px;
   max-width: 1366px;
-  
 }
+
+.div-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 p {
   font-size: 14px;
   margin-bottom: $margin-element;
@@ -104,25 +115,24 @@ button {
   transition: background-color 0.2s ease-out;
   border-radius: 0;
   border-radius: 15px;
- 
+  width: 214px;
 }
 button:disabled {
-  background-color: $grey; 
+  background-color: $grey;
 }
 
-input {
+input[type="text"] {
   padding: 10px;
   font-family: $font;
   font-size: 18px;
   outline: none;
-  border: 1px solid $color-border;
+  border: 1px solid $grey;
   transition: border 0.2s ease-out;
   border-radius: 8px;
   box-shadow: none;
   @include placeholder {
     color: lighten($black, 5%);
-    transition: opacity 0.2s ease-out,
-      transform 0.2s ease-out;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
   }
   &:focus {
     border: 1px solid $black;
@@ -134,71 +144,8 @@ input {
 }
 
 input[type="checkbox"] {
-  position: absolute;
-  top: 0; right: 0; bottom: 0;
-  margin: auto;
-  display: none;
-  + label {
-    display: block;
-    position: absolute;
-    top: 0; right: 0; bottom: 0;
-    margin: auto;
-    width: 24px;
-    height: 24px;
-    background: $color-checkbox;
-    border-radius: 100%;
-    cursor: pointer;
-    box-shadow: 
-      inset lighten($color-checkbox, 15%) 0 0 0 2px,
-      inset white 0 0 0 4px;
-    transition: box-shadow 0.1s ease-out;
-    &:before {
-      width: 0;
-      height: 0;
-    }
-    &:after {
-      opacity: 0;
-      content: "";
-      position: absolute;
-      top: -2px; right: 0; bottom: 0; left: 0;
-      margin: auto;
-      width: 3px;
-      height: 8px;
-      border-right: 3px solid white;
-      transform: rotate(90deg);
-      transition: opacity 0.2s ease-out;
-    }
-    &:hover {
-      box-shadow: 
-      inset $color-checkbox 0 0 0 12px,
-      inset white 0 0 0 12px;
-      &:after {
-        opacity: 1;
-      }
-    }
-  }
-  &:checked {
-    + label {
-      background: transparent;
-      box-shadow: none;
-      animation: bounce 0.4s linear;
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
-        margin: auto;
-        width: 100%;
-        height: 100%;
-        background: $color-checkbox-checked;
-        border-radius: 100%;
-      }
-      &:after {
-        opacity: 1;
-        border-bottom: 3px solid white;
-       
-      }
-    }
-  }
+  margin-right: 4px;
+  border: 1px solid $grey;
 }
 
 ul {
@@ -207,26 +154,45 @@ ul {
   li {
     color: $color-item;
     position: relative;
-   
+
     .text-task {
-      display: block; 
-      font-family: 'Roboto', sans-serif; 
-      font-weight: 500; 
-      letter-spacing: 0.5px; 
+      display: block;
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
       font-size: 16px;
       line-height: 1.5;
-
     }
-    margin-bottom: 8px;
+    margin-bottom: 14px;
   }
+}
+.form-check-label {
+  margin-top: 4px;
+  color: #000;
+}
+
+label {
+  display: block;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.divider {
+  width: 100%;
+  opacity: 0.22;
+  border-bottom: 1px solid black;
+  margin-top: 14px;
 }
 
 .div-icons {
   display: flex;
   justify-content: space-between;
   width: 40px;
-  margin-left: 16px;
- 
+  margin-top: 8px;
 }
 
 .icon-details {
@@ -238,8 +204,3 @@ ul {
   text-decoration: none !important;
   color: $red;
 }
-
-.completed {
-  text-decoration: line-through;
-}
-

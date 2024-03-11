@@ -26,7 +26,8 @@ export class TaskComponent {
   ];
   task: Task = {
     title: "Unit test all API customer",
-    done: false,
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet dapibus consectetur.",
+    status: "DONE",
   };
 
   taskKeys(): string[] {

@@ -1,5 +1,7 @@
 export interface Task {
   title: string;
-  done: boolean;
+  text: string;
+  status: string;
+  createdAt?: Date;
   [key: string]: any;
 }

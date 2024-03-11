@@ -1,37 +1,93 @@
 <div class="main-div">
   <h1>Task list</h1>
-  <div *ngIf="!isLoggedIn"  class="alert alert-danger mb-4" role="alert">
+  <div *ngIf="!isLoggedIn" class="alert alert-danger mb-4" role="alert">
     You must be logged, in order to interact with tasks.
   </div>
   <form #form="ngForm" (ngSubmit)="addTask()">
-    <div>
+    <div class="div-inputs">
       <input
         type="text"
         name="task"
-        placeholder="Add a new task"
-        [(ngModel)]="newTask"
+        placeholder="Task Title"
+        [(ngModel)]="newTaskTitle"
+        required
+        [disabled]="!isLoggedIn"
+      />
+      <input
+        type="text"
+        name="task"
+        placeholder="Task text"
+        [(ngModel)]="newTaskText"
         required
         [disabled]="!isLoggedIn"
       />
       <button [disabled]="!isLoggedIn">Add task</button>
     </div>
   </form>
+  <br />
+  <div></div>
   <ul>
-    <li *ngFor="let task of tasks; let i = index" >
-      <div class="d-flex align-items-center">
-        <span [class.completed]="task.done" class="text-task">{{ task.title }}</span>
-        <div class="div-icons">
-          <i class="fas fa-ellipsis-v icon-details mr-2"></i>
-          <i class="fas fa-trash icon-trash ml-2"></i>
+    <li
+      *ngFor="let task of tasks; let i = index"
+      class="d-flex flex-column lign-items-center"
+    >
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-column align-items-start">
+          <small [class.completed]="task.status === 'DONE'" class="text-task">
+            {{ task.title }}
+          </small>
+          <div class="div-icons">
+            <i class="fas fa-ellipsis-v icon-details mr-2"></i>
+            <!-- Add click event handler to call deleteTask method -->
+            <i
+              class="fas fa-trash icon-trash"
+              (click)="deleteTask(task['_id'])"
+            ></i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'task-todo-' + i"
+              [(ngModel)]="task.status"
+              [disabled]="!isLoggedIn"
+              (change)="toggleTaskStatus(task, 'TODO')"
+            />
+            <label class="form-check-label" [for]="'task-todo-' + i"
+              >TODO</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'task-in-progress-' + i"
+              [(ngModel)]="task.status"
+              [disabled]="!isLoggedIn"
+              (change)="toggleTaskStatus(task, 'IN_PROGRESS')"
+            />
+            <label class="form-check-label" [for]="'task-in-progress-' + i"
+              >In Progress</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'task-done-' + i"
+              [(ngModel)]="task.status"
+              [disabled]="!isLoggedIn"
+              (change)="toggleTaskStatus(task, 'DONE')"
+            />
+            <label class="form-check-label ml-2" [for]="'task-done-' + i"
+              >Done</label
+            >
+          </div>
         </div>
       </div>
-      <input
-        type="checkbox"
-        [id]="'task-' + i"
-        [(ngModel)]="task.done"
-        [disabled]="!isLoggedIn"
-      />
-      <label [for]="'task-' + i"></label>
+      <div class="divider"></div>
     </li>
   </ul>
 
