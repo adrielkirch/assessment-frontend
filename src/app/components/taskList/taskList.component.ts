@@ -26,10 +26,6 @@ export class TaskListComponent {
     this.taskService.getAllTasks().subscribe(
       (tasks: Task[]) => {
         this.tasks = this.processAllCheckBoxes(tasks);
-
-      },
-      (error) => {
-        console.error("Error fetching tasks:", error);
       }
     );
   }
