@@ -3,5 +3,10 @@ export interface Task {
   text: string;
   status: string;
   createdAt?: Date;
+  statusMap?:{
+    TODO: boolean;
+    IN_PROGRESS: boolean;
+    DONE: boolean;
+  };
   [key: string]: any;
 }

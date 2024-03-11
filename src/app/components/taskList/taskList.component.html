@@ -51,12 +51,12 @@
               class="form-check-input"
               type="checkbox"
               [id]="'task-todo-' + i"
-              [(ngModel)]="task.status"
+              [checked]="task?.statusMap?.TODO || false"
               [disabled]="!isLoggedIn"
               (change)="toggleTaskStatus(task, 'TODO')"
             />
             <label class="form-check-label" [for]="'task-todo-' + i"
-              >TODO</label
+              >To do</label
             >
           </div>
           <div class="form-check form-check-inline">
@@ -64,7 +64,7 @@
               class="form-check-input"
               type="checkbox"
               [id]="'task-in-progress-' + i"
-              [(ngModel)]="task.status"
+              [checked]="task?.statusMap?.IN_PROGRESS || false"
               [disabled]="!isLoggedIn"
               (change)="toggleTaskStatus(task, 'IN_PROGRESS')"
             />
@@ -77,7 +77,7 @@
               class="form-check-input"
               type="checkbox"
               [id]="'task-done-' + i"
-              [(ngModel)]="task.status"
+              [checked]="task?.statusMap?.DONE || false"
               [disabled]="!isLoggedIn"
               (change)="toggleTaskStatus(task, 'DONE')"
             />

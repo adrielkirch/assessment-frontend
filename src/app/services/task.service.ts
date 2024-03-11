@@ -17,7 +17,7 @@ export class TaskService {
   getTaskById(id: string): Observable<any> {
     return this.http.get<any>(`${API_URL}/tasks/read-one?id=${id}`).pipe(
       tap((response) => {
-        console.log("Task retrieved successfully:", response);
+        
       })
     );
   }
@@ -27,7 +27,7 @@ export class TaskService {
       .post<any>(`${API_URL}/tasks`, { title, text, status })
       .pipe(
         tap((response) => {
-          console.log("Task created successfully:", response);
+         
         })
       );
   }
@@ -35,7 +35,7 @@ export class TaskService {
   updateTask(task: any): Observable<any> {
     return this.http.put<any>(`${API_URL}/tasks`, task).pipe(
       tap((response) => {
-        console.log("Task updated successfully:", response);
+      
       })
     );
   }
@@ -43,7 +43,7 @@ export class TaskService {
   deleteTask(id: string): Observable<any> {
     return this.http.delete<any>(`${API_URL}/tasks?id=${id}`).pipe(
       tap((response) => {
-        console.log("Task deleted successfully:", response);
+    
       })
     );
   }

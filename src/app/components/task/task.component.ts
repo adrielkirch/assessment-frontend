@@ -43,7 +43,7 @@ export class TaskComponent {
       this.comments.push({ title: this.newComment });
       this.newComment = "";
     }
-    console.log(this.comments);
+  
   }
 
   
