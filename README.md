@@ -51,3 +51,12 @@ Extend the Angular project provided to you with the following functionality:
 Notes:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+
+## Images 
+
+![image](https://github.com/adrielkirch/assessment-frontend/assets/36992911/9bd0052b-a27a-4583-8a1c-cd8b98155f27)
+
+![image](https://github.com/adrielkirch/assessment-frontend/assets/36992911/3a52d397-df45-4570-8ce7-9df3834ab445)
+
+![image](https://github.com/adrielkirch/assessment-frontend/assets/36992911/5a24e6d8-0441-4d30-b25d-9b18410393a8)
+
