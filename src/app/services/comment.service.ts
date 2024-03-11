@@ -10,36 +10,36 @@ const headers = HttpUtil.getAuthorizationHeader();
 @Injectable({
   providedIn: "root",
 })
-export class TaskService {
+export class CommentService {
   constructor(private http: HttpClient) {}
 
-  getAllTasks(): Observable<any> {
+  getAllComments(taskId:string): Observable<any> {
     return this.http
-      .get<any>(`${API_URL}/tasks`, { headers })
+      .get<any>(`${API_URL}/comments/${taskId}`, { headers })
       .pipe(tap(() => {}));
   }
 
-  getTaskById(id: string): Observable<any> {
+  getCommentById(id: string): Observable<any> {
     return this.http
-      .get<any>(`${API_URL}/tasks/read-one?id=${id}`, { headers })
+      .get<any>(`${API_URL}/comments/read-one?id=${id}`, { headers })
       .pipe(tap(() => {}));
   }
 
-  createTask(title: string, text: string, status = "TODO"): Observable<any> {
+  createComment(text: string, userId: string, taskId: string): Observable<any> {
     return this.http
-      .post<any>(`${API_URL}/tasks`, { title, text, status }, { headers })
+      .post<any>(`${API_URL}/comments`, { text, userId, taskId }, { headers })
       .pipe(tap(() => {}));
   }
 
-  updateTask(task: any): Observable<any> {
+  updateComment(task: any): Observable<any> {
     return this.http
-      .put<any>(`${API_URL}/tasks`, task, { headers })
+      .put<any>(`${API_URL}/comments`, task, { headers })
       .pipe(tap(() => {}));
   }
 
-  deleteTask(id: string): Observable<any> {
+  deleteComment(id: string | undefined): Observable<any> {
     return this.http
-      .delete<any>(`${API_URL}/tasks?id=${id}`, { headers })
+      .delete<any>(`${API_URL}/comments?id=${id}`, { headers })
       .pipe(tap(() => {}));
   }
 }

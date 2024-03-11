@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Task } from "../task/model/model.task";
 import { AuthService } from "../../services/auth.service";
 import { TaskService } from "../../services/task.service";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-task-list",
   templateUrl: "./taskList.component.html",
@@ -14,7 +15,8 @@ export class TaskListComponent {
   newTaskText: string = "";
   constructor(
     private authService: AuthService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +28,9 @@ export class TaskListComponent {
     this.taskService.getAllTasks().subscribe(
       (tasks: Task[]) => {
         this.tasks = this.processAllCheckBoxes(tasks);
+      },
+      (error) => {
+        console.error("Error fetchTasks task:", error);
       }
     );
   }
@@ -71,12 +76,16 @@ export class TaskListComponent {
         task = this.processOneCheckBox(task);
       },
       (error) => {
-        console.error("Error deleting task:", error);
+        console.error("Error on updating task:", error);
       }
     );
   }
-  processAllCheckBoxes(tasks: Task[]): Task[] {
 
+  navigate(id: string) {
+    this.router.navigate([`/task/${id}`]);
+  }
+
+  processAllCheckBoxes(tasks: Task[]): Task[] {
     for (let i = 0; i < tasks.length; i++) {
       let task = tasks[i];
       task = this.processOneCheckBox(task);

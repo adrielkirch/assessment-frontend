@@ -37,8 +37,11 @@
             {{ task.title }}
           </small>
           <div class="div-icons">
-            <i class="fas fa-ellipsis-v icon-details mr-2"></i>
-            <!-- Add click event handler to call deleteTask method -->
+            <i
+              class="fas fa-ellipsis-v icon-details mr-2"
+              (click)="navigate(task['_id'])"
+            ></i>
+
             <i
               class="fas fa-trash icon-trash"
               (click)="deleteTask(task['_id'])"

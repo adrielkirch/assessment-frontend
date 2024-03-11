@@ -1,19 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Import FormsModule here
+import { FormsModule } from '@angular/forms';
 
 import { TaskComponent } from './task.component';
+import { TaskRoutingModule } from './task-routing.module';
 
 @NgModule({
-  declarations: [
-    TaskComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule // Add FormsModule to the imports array
-  ],
-  exports: [
-    TaskComponent
-  ]
+  declarations: [TaskComponent],
+  imports: [CommonModule, FormsModule,TaskRoutingModule],
+  exports: [TaskComponent]
 })
 export class TaskModule { }

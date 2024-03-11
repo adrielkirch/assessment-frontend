@@ -2,7 +2,6 @@
   font-size: 1.2em;
 }
 .scrollable-container {
-
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 10px; /* Optional: Add padding for spacing */
 }
@@ -62,15 +61,16 @@
 .nga-card-step:hover {
   border: 1px solid #99ccff;
   color: #0d6efd;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
   transition: box-shadow 0.3s ease-in-out;
 }
 
 .nga-btn-guide {
   border-radius: 10em;
-  font-size: .80rem;
+  font-size: 0.8rem;
   font-weight: bold;
-  padding: .84rem 2.14rem;
+  padding: 0.84rem 2.14rem;
   text-transform: uppercase;
   --bs-btn-color: #fff;
   --bs-btn-bg: #1976d2;
@@ -89,11 +89,11 @@
 }
 
 .nga-btn-guide:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
   transition: box-shadow 0.3s ease-in-out;
 }
 
 .nga-text-guide {
   color: #1976d2;
 }
-

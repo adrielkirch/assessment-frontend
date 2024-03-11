@@ -1,8 +1,41 @@
 <div class="main-div">
   <h1>Task</h1>
-  <h4>#601f8be6eaaee809f30b8f13</h4>
+  <h5>#{{ taskId }}</h5>
   <div *ngIf="!isLoggedIn" class="alert alert-danger mb-4" role="alert">
     You must be logged, in order to interact with tasks.
+  </div>
+
+  <div class="d-flex align-items-center mb-8">
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [checked]="task?.statusMap?.TODO || false"
+        [disabled]="!isLoggedIn"
+        (change)="toggleTaskStatus(task, 'TODO')"
+      />
+      <label class="form-check-label mt-1">To do</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [checked]="task?.statusMap?.IN_PROGRESS || false"
+        [disabled]="!isLoggedIn"
+        (change)="toggleTaskStatus(task, 'IN_PROGRESS')"
+      />
+      <label class="form-check-label mt-1">In Progress</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [checked]="task?.statusMap?.DONE || false"
+        [disabled]="!isLoggedIn"
+        (change)="toggleTaskStatus(task, 'DONE')"
+      />
+      <label class="form-check-label ml-2 mt-1">Done</label>
+    </div>
   </div>
 
   <table class="table mt-4">
@@ -14,14 +47,29 @@
     </thead>
     <tbody>
       <tr *ngFor="let key of taskKeys()">
-        <td>{{ key }}</td>
-        <td>{{ getTaskValue(key) }}</td>
+        <td *ngIf="key !== 'statusMap'">{{ key }}</td>
+        <td *ngIf="key !== 'statusMap'" class="d-flex align-items-center">
+          <ng-container *ngIf="!edit[key]">
+            {{ getTaskValue(key) }} &nbsp;&nbsp;&nbsp;
+            <i
+              (click)="toggleEdit(key)"
+              *ngIf="['title', 'text'].includes(key)"
+              class="fas fa-pencil-alt"
+            ></i>
+          </ng-container>
+          <div *ngIf="edit[key]" class="input-btn-container mr-12">
+            <input type="text" [(ngModel)]="editedValues[key]" />
+            <button class="button-save" (click)="saveEdit(key)">Save</button>
+          </div>
+
+          <div *ngIf="edit[key]">
+            <i (click)="cancelEdit(key)"  class="fas fa-times fa-xl icon-cancel"></i>
+          </div>
+        </td>
       </tr>
     </tbody>
-    
   </table>
-  
-  
+
   <br />
   <form class="mt-6" #form="ngForm" (ngSubmit)="addComment()">
     <div>
@@ -38,16 +86,21 @@
     <br />
   </form>
   <ul>
-    <li *ngFor="let comment of comments; let i = index">
+    <li *ngFor="let comment of comments; let i = index" class="py-3">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex flex-column">
-          <span class="text-comment">{{ comment.title }}</span>
+          <span class="text-comment">{{ comment.text }}</span>
           <small>{{ formatCreatedAt(comment.createdAt) }}</small>
         </div>
-        <i class="fas fa-trash icon-trash ml-2"></i>
+        <i
+          *ngIf="userId === comment.userId"
+          (click)="deleteComment(comment['_id'])"
+          class="fas fa-trash icon-trash ml-2"
+        ></i>
       </div>
 
       <label [for]="'comment-' + i"></label>
+      <div class="divider"></div>
     </li>
   </ul>
 

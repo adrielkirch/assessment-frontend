@@ -1,7 +1,12 @@
 import { Component } from "@angular/core";
-import { Task } from "./model/model.task";
+import { Task, TaskUpdate } from "./model/model.task";
 import { Comment } from "./model/model.comment";
 import { AuthService } from "../../services/auth.service";
+import { TaskService } from "../../services/task.service";
+import { CommentService } from "../../services/comment.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { LocalStorageUtil } from "../../utils/util.localstorage";
+import { DateUtil } from "../../utils/util.date";
 
 @Component({
   selector: "app-task",
@@ -11,54 +16,174 @@ import { AuthService } from "../../services/auth.service";
 export class TaskComponent {
   isLoggedIn = false;
 
+  newCommentText = "";
+  taskId = "";
+  userId = LocalStorageUtil.getCurrentUserId();
+  task: Task = {
+    title: "",
+    text: "",
+    status: "",
+  };
+  comments: Comment[] = [];
+  edit: { [key: string]: boolean } = {};
+  editedValues: { [key: string]: string } = {};
   newComment: string = "";
-  constructor(private authService: AuthService) {}
+
+  constructor(
+    private authService: AuthService,
+    private taskService: TaskService,
+    private commentService: CommentService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.route.params.subscribe((params) => {
+      this.taskId = params["id"];
+      this.fetchTask();
+      this.fetchComments();
+    });
   }
- 
-  comments: Comment[] = [
-    { title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet dapibus consectetur.", createdAt: new Date().toISOString()},
-    { title: "Donec dapibus non augue id luctus. Vivamus porttitor ac eros et commodo.", createdAt: new Date().toISOString() },
-    { title: "Ut id arcu ante. Cras blandit pretium orci, non pretium nisi tempus eget.", createdAt: new Date().toISOString()},
-    { title: "Ut ornare mi ac cursus condimentum. Aliquam eu feugiat urna. Aenean in libero nec ante auctor laoreet faucibus id lectus.", createdAt: new Date().toISOString() }
-  ];
-  task: Task = {
-    title: "Unit test all API customer",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet dapibus consectetur.",
-    status: "DONE",
-  };
+
+  fetchTask(): void {
+    this.taskService.getTaskById(this.taskId).subscribe(
+      (task: Task) => {
+        console.log(task);
+        task["createdAt"] = this.formatCreatedAt(task["createdAt"]?.toString());
+        delete task["__v"];
+        this.task = this.processOneCheckBox(task);
+      },
+      (error) => {
+        this.router.navigate(["/login"]);
+        console.error("Error fetchTask task:", error);
+      }
+    );
+  }
+
+  fetchComments(): void {
+    this.commentService.getAllComments(this.taskId).subscribe(
+      (comments: Comment[]) => {
+        console.log(comments);
+        this.comments = comments;
+      },
+      (error) => {
+        this.router.navigate(["/login"]);
+        console.error("Error fetchTask task:", error);
+      }
+    );
+  }
 
   taskKeys(): string[] {
-    return Object.keys(this.task);
+    let keys = Object.keys(this.task);
+    return keys;
   }
 
   getTaskValue(key: string): any {
     return this.task[key];
   }
-  
+
   addComment(): void {
     if (this.newComment.trim()) {
-      this.comments.push({ title: this.newComment });
-      this.newComment = "";
+      this.commentService
+        .createComment(this.newComment, this.userId, this.taskId)
+        .subscribe(
+          (comment: Comment) => {
+            this.comments.unshift(comment);
+            this.newComment = "";
+          },
+          (error) => {
+            this.router.navigate(["/login"]);
+            console.error("Error fetchTask task:", error);
+          }
+        );
     }
-  
   }
 
-  
+  deleteComment(id: string | undefined): void {
+    this.commentService.deleteComment(id).subscribe(
+      () => {
+        this.comments = this.comments.filter(
+          (comment) => comment["_id"] !== id
+        );
+        alert("Comment deleted successfully.");
+      },
+      (error) => {
+        console.error("Error deleting task:", error);
+      }
+    );
+  }
+
+  toggleEdit(key: string): void {
+    this.edit[key] = true;
+    this.editedValues[key] = this.getTaskValue(key);
+  }
+
+  saveEdit(key: string): void {
+    const taskToUpdate = {
+      ...this.task,
+      [key]: this.editedValues[key], // Use the edited value from editedValues
+    };
+
+    this.edit[key] = false;
+
+    this.taskService.updateTask(taskToUpdate).subscribe(
+      (updatedTask) => {
+        // Update only the edited property in this.task
+        this.task[key] = updatedTask[key];
+      },
+      (error) => {
+        console.error("Error on updating task:", error);
+      }
+    );
+  }
+
+  cancelEdit(key: string): void {
+    this.edit[key] = false;
+  }
   formatCreatedAt(dateString: string | undefined): string {
-    if(dateString === undefined) {
-      return ""
-    }
-    const date = new Date(dateString);
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    const hours = ('0' + date.getHours()).slice(-2);
-    const minutes = ('0' + date.getMinutes()).slice(-2);
-
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
+    return DateUtil.formatCreatedAt(dateString);
   }
+  
 
+  toggleTaskStatus(task: Task, status: "TODO" | "IN_PROGRESS" | "DONE"): void {
+    task.status = status;
+    this.taskService.updateTask(task).subscribe(
+      () => {
+        task = this.processOneCheckBox(task);
+      },
+      (error) => {
+        console.error("Error on updating task:", error);
+      }
+    );
+  }
+  processOneCheckBox(task: Task): Task {
+    switch (task.status) {
+      case "TODO":
+        task.statusMap = {
+          TODO: true,
+          IN_PROGRESS: false,
+          DONE: false,
+        };
+        break;
+      case "IN_PROGRESS":
+        task.statusMap = {
+          TODO: false,
+          IN_PROGRESS: true,
+          DONE: false,
+        };
+        break;
+      case "DONE":
+        task.statusMap = {
+          TODO: false,
+          IN_PROGRESS: false,
+          DONE: true,
+        };
+        break;
+      default:
+        break;
+    }
+
+    return task;
+  }
 }

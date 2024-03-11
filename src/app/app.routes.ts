@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: "", component: HomeComponent },
 
   { path: "tasks", component: HomeComponent },
-  { path: "task", component: TaskComponent },
+  { path: "task/:id", component: TaskComponent },
   {
     path: "login",
     loadChildren: () =>

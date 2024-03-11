@@ -60,7 +60,7 @@ body {
 }
 
 .main-div {
-  padding: 16px;
+  padding: 24px;
   margin: auto;
   padding: $margin-element;
   font-family: $font;
@@ -68,7 +68,7 @@ body {
   line-height: 22px;
   background: white;
   border-radius: 8px;
-  box-shadow: rgba(black, 0.2) 0 20px 20px -12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   max-width: 1366px;
 }
 
