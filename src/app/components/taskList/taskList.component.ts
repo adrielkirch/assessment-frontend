@@ -69,17 +69,6 @@ export class TaskListComponent {
     );
   }
 
-  toggleTaskStatus(task: Task, status: "TODO" | "IN_PROGRESS" | "DONE"): void {
-    task.status = status;
-    this.taskService.updateTask(task).subscribe(
-      () => {
-        task = this.processOneCheckBox(task);
-      },
-      (error) => {
-        console.error("Error on updating task:", error);
-      }
-    );
-  }
 
   navigate(id: string) {
     this.router.navigate([`/task/${id}`]);
@@ -92,6 +81,18 @@ export class TaskListComponent {
     }
     return tasks;
   }
+  toggleTaskStatus(task: Task, status: "TODO" | "IN_PROGRESS" | "DONE"): void {
+    task.status = status;
+    this.taskService.updateTask(task).subscribe(
+      () => {
+        task = this.processOneCheckBox(task);
+      },
+      (error) => {
+        console.error("Error on updating task:", error);
+      }
+    );
+  }
+
   processOneCheckBox(task: Task): Task {
     switch (task.status) {
       case "TODO":
