@@ -157,6 +157,7 @@ export class TaskComponent {
       }
     );
   }
+
   processOneCheckBox(task: Task): Task {
     switch (task.status) {
       case "TODO":
